@@ -1,1 +1,19 @@
-/*# sourceMappingURL=style.css.map */
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background-color: gray;
+}
+.gridContainer .cols {
+  display: grid;
+  gap: 10px;
+}
+.gridContainer .cells {
+  background-color: white;
+  border: 1px solid black;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  font-size: 30px;
+  text-align: center;
+}/*# sourceMappingURL=style.css.map */
