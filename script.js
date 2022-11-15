@@ -10,6 +10,9 @@ const game = {
 
 const gameBoard = (() => {
   const bodyContainer = document.querySelector(".bodyContainer");
+  const statusContainer = document.createElement("div");
+  statusContainer.classList.add("statusContainer");
+  bodyContainer.appendChild(statusContainer);
   const gridContainer = document.querySelector(".gridContainer");
 
   const createGrid = (() => {
@@ -101,7 +104,7 @@ const gameBoard = (() => {
         winCond[i][0] === winCond[i][1] &&
         winCond[i][0] === winCond[i][2]
       ) {
-        bodyContainer.textContent = "You win";
+        statusContainer.textContent = "You win";
         game.state = "after";
       }
     }
