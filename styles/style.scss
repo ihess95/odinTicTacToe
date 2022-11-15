@@ -18,6 +18,9 @@
   text-align: left;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  .statusContainer {
+    font-size: 50px;
+  }
 }
 
 .gridContainer {
@@ -41,5 +44,6 @@
     padding: 20px;
     font-size: 100px;
     text-align: center;
+    font-weight: bold;
   }
 }

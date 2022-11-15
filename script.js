@@ -11,8 +11,14 @@ const game = {
 const gameBoard = (() => {
   const bodyContainer = document.querySelector(".bodyContainer");
   const statusContainer = document.createElement("div");
+  const buttonsContainer = document.createElement("div");
+  const resetBtn = document.createElement("button");
   statusContainer.classList.add("statusContainer");
-  bodyContainer.appendChild(statusContainer);
+  statusContainer.textContent = "Tic Tac Toe Game";
+  resetBtn.textContent = "Restart game";
+  buttonsContainer.appendChild(resetBtn);
+  bodyContainer.prepend(statusContainer);
+  bodyContainer.appendChild(buttonsContainer);
   const gridContainer = document.querySelector(".gridContainer");
 
   const createGrid = (() => {
@@ -35,12 +41,12 @@ const gameBoard = (() => {
     for (let i = 0; i < cells.length; i++) {
       cellsArray[i].classList.add("cell" + i);
       cellsArray[i].addEventListener("click", function () {
-        if ((game.state = "playing")) {
+        if (game.state === "playing") {
           if (cellsArray[i].textContent === "") {
             if (game.player1.active) {
               game.player1.active = false;
               game.player2.active = true;
-              cells[i].textContent = "0";
+              cells[i].textContent = "O";
               checkWin();
             } else {
               game.player1.active = true;
@@ -50,6 +56,11 @@ const gameBoard = (() => {
             }
           }
         }
+        resetBtn.addEventListener("click", function () {
+          cellsArray[i].textContent = "";
+          game.state = "playing";
+          console.log("test");
+        });
       });
     }
   })();
@@ -104,8 +115,8 @@ const gameBoard = (() => {
         winCond[i][0] === winCond[i][1] &&
         winCond[i][0] === winCond[i][2]
       ) {
-        statusContainer.textContent = "You win";
         game.state = "after";
+        statusContainer.textContent = "You win";
       }
     }
   }

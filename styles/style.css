@@ -19,6 +19,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.bodyContainer .statusContainer {
+  font-size: 50px;
+}
 
 .gridContainer {
   display: grid;
@@ -42,4 +45,5 @@
   padding: 20px;
   font-size: 100px;
   text-align: center;
+  font-weight: bold;
 }/*# sourceMappingURL=style.css.map */
