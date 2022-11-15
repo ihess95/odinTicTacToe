@@ -1,9 +1,13 @@
 const game = {
   player1: {
     active: true,
+    name: "Player 1",
+    score: 0,
   },
   player2: {
     active: false,
+    name: "Player 1",
+    score: 0,
   },
   state: "playing",
   counter: 0,
@@ -34,7 +38,14 @@ const gameBoard = (() => {
       for (let i = 0; i < cellsArray.length; i++)
         cellsArray[i].textContent = "";
       game.state = "playing";
+      game.counter = 0;
       statusContainer.textContent = "Tic Tac Toe Game";
+      p1ResultsContainer = document.createElement("div");
+      p1ResultsContainer.textContent = `${game.player1.name}: ${game.player1.score}`;
+      p2ResultsContainer = document.createElement("div");
+      resultsContainer.appendChild(p2ResultsContainer);
+      statusContainer.appendChild(resultsContainer);
+      p2ResultsContainer.textContent = `${game.player2.name}: ${game.player2.score}`;
     });
     return buttonName;
   }
@@ -47,6 +58,16 @@ const gameBoard = (() => {
     "buttonsContainer",
     "resetBtn"
   );
+  const resultsContainer = document.createElement("div");
+  resultsContainer.classList.add("resultsContainer");
+  statusContainer.appendChild(resultsContainer);
+  const p1ResultsContainer = document.createElement("div");
+  resultsContainer.appendChild(p1ResultsContainer);
+  p1ResultsContainer.textContent = `${game.player1.name}: ${game.player1.score}`;
+  const p2ResultsContainer = document.createElement("div");
+  resultsContainer.appendChild(p2ResultsContainer);
+  p2ResultsContainer.textContent = `${game.player2.name}: ${game.player2.score}`;
+  const choosePlayer = document.createElement("button");
 
   const gridContainer = document.querySelector(".gridContainer");
 
@@ -78,7 +99,7 @@ const gameBoard = (() => {
               cells[i].textContent = "O";
               game.counter++;
               if (game.counter >= 9) {
-                game.state = "after";
+                game.state = "tied";
               }
               checkWin();
             } else {
@@ -87,7 +108,7 @@ const gameBoard = (() => {
               cells[i].textContent = "X";
               game.counter++;
               if (game.counter >= 9) {
-                game.state = "after";
+                game.state = "tied";
               }
               checkWin();
             }
@@ -147,9 +168,14 @@ const gameBoard = (() => {
         winCond[i][0] === winCond[i][2]
       ) {
         game.state = "after";
+        if (game.player1.active === true) {
+          game.player1.score++;
+        } else {
+          game.player2.score++;
+        }
         statusContainer.textContent =
           game.player1.active === true ? "Player 1 wins" : "Player 2 wins";
-      } else if (game.state === "after") {
+      } else if (game.state === "tied") {
         statusContainer.textContent = "Draw";
       }
     }

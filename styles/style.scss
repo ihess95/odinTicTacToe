@@ -20,6 +20,12 @@
   -moz-osx-font-smoothing: grayscale;
   .statusContainer {
     font-size: 50px;
+    .resultsContainer {
+      font-size: 25px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
   }
   .buttonsContainer {
     display: flex;
