@@ -1,13 +1,13 @@
+const game = {
+  player1: {
+    active: true,
+  },
+  player2: {
+    active: false,
+  },
+  state: "playing",
+};
 const gameBoard = (() => {
-  const game = {
-    player1: {
-      active: true,
-    },
-    player2: {
-      active: false,
-    },
-    state: "playing",
-  };
   function ContainerBuildPrepend(name, text) {
     this.name = name;
     name = document.createElement("div");
@@ -15,6 +15,7 @@ const gameBoard = (() => {
     name.classList.add(this.name);
     name.textContent = text;
     bodyContainer.prepend(name);
+    return name;
   }
   function ContainerBuildButtons(name, buttonName) {
     this.name = name;
@@ -138,7 +139,7 @@ const gameBoard = (() => {
       ) {
         game.state = "after";
         statusContainer.textContent =
-          game.player1.state === "active" ? "Player 1 wins" : "Player 2 wins";
+          game.player1.active === true ? "Player 1 wins" : "Player 2 wins";
       }
     }
   }
