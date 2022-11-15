@@ -6,6 +6,7 @@ const game = {
     active: false,
   },
   state: "playing",
+  counter: 0,
 };
 const gameBoard = (() => {
   function ContainerBuildPrepend(name, text) {
@@ -75,11 +76,19 @@ const gameBoard = (() => {
               game.player1.active = false;
               game.player2.active = true;
               cells[i].textContent = "O";
+              game.counter++;
+              if (game.counter >= 9) {
+                game.state = "after";
+              }
               checkWin();
             } else {
               game.player1.active = true;
               game.player2.active = false;
               cells[i].textContent = "X";
+              game.counter++;
+              if (game.counter >= 9) {
+                game.state = "after";
+              }
               checkWin();
             }
           }
@@ -140,6 +149,8 @@ const gameBoard = (() => {
         game.state = "after";
         statusContainer.textContent =
           game.player1.active === true ? "Player 1 wins" : "Player 2 wins";
+      } else if (game.state === "after") {
+        statusContainer.textContent = "Draw";
       }
     }
   }
