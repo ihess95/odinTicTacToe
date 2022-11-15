@@ -1,24 +1,51 @@
-const game = {
-  player1: {
-    active: true,
-  },
-  player2: {
-    active: false,
-  },
-  state: "playing",
-};
-
 const gameBoard = (() => {
+  const game = {
+    player1: {
+      active: true,
+    },
+    player2: {
+      active: false,
+    },
+    state: "playing",
+  };
+  function ContainerBuildPrepend(name, text) {
+    this.name = name;
+    name = document.createElement("div");
+    this.text = text;
+    name.classList.add(this.name);
+    name.textContent = text;
+    bodyContainer.prepend(name);
+  }
+  function ContainerBuildButtons(name, buttonName) {
+    this.name = name;
+    console.log(this.name);
+    name = document.createElement("div");
+    console.log(name);
+    name.classList.add(this.name);
+    bodyContainer.appendChild(name);
+    this.buttonName = buttonName;
+    this.buttonName = document.createElement("button");
+    this.buttonName.textContent = "Restart game";
+    name.appendChild(this.buttonName);
+    bodyContainer.appendChild(name);
+    this.buttonName.addEventListener("click", function () {
+      for (let i = 0; i < cellsArray.length; i++)
+        cellsArray[i].textContent = "";
+      game.state = "playing";
+      statusContainer.textContent = "Tic Tac Toe Game";
+    });
+    return buttonName;
+  }
   const bodyContainer = document.querySelector(".bodyContainer");
-  const statusContainer = document.createElement("div");
-  const buttonsContainer = document.createElement("div");
-  const resetBtn = document.createElement("button");
-  statusContainer.classList.add("statusContainer");
-  statusContainer.textContent = "Tic Tac Toe Game";
-  resetBtn.textContent = "Restart game";
-  buttonsContainer.appendChild(resetBtn);
-  bodyContainer.prepend(statusContainer);
-  bodyContainer.appendChild(buttonsContainer);
+  const statusContainer = new ContainerBuildPrepend(
+    "statusContainer",
+    "Tic Tac Toe Game"
+  );
+  const buttonsContainer = new ContainerBuildButtons(
+    "buttonsContainer",
+    "resetBtn"
+  );
+
   const gridContainer = document.querySelector(".gridContainer");
 
   const createGrid = (() => {
@@ -56,11 +83,6 @@ const gameBoard = (() => {
             }
           }
         }
-        resetBtn.addEventListener("click", function () {
-          cellsArray[i].textContent = "";
-          game.state = "playing";
-          console.log("test");
-        });
       });
     }
   })();
@@ -108,7 +130,6 @@ const gameBoard = (() => {
         cellsArray[6].textContent,
       ],
     ];
-    console.log(winCond);
     for (let i = 0; i < winCond.length; i++) {
       if (
         winCond[i][0] != "" &&
@@ -116,7 +137,8 @@ const gameBoard = (() => {
         winCond[i][0] === winCond[i][2]
       ) {
         game.state = "after";
-        statusContainer.textContent = "You win";
+        statusContainer.textContent =
+          game.player1.state === "active" ? "Player 1 wins" : "Player 2 wins";
       }
     }
   }

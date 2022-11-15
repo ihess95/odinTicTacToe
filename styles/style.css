@@ -22,6 +22,24 @@
 .bodyContainer .statusContainer {
   font-size: 50px;
 }
+.bodyContainer .buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.bodyContainer .buttonsContainer button {
+  margin: 10px;
+  padding: 10px;
+  border: none;
+  background-color: green;
+  border-radius: 100px;
+  cursor: pointer;
+}
+.bodyContainer .buttonsContainer button:hover {
+  background-color: #000;
+  color: #fff;
+}
 
 .gridContainer {
   display: grid;
