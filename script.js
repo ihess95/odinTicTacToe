@@ -22,6 +22,13 @@ const gameBoard = (() => {
     bodyContainer.prepend(name);
     return name;
   }
+  function init() {
+    game.state = "before";
+    game.player1.active = true;
+    game.player2.active = false;
+    game.counter = 0;
+    statusContainer.textContent = "Tic Tac Toe Game";
+  }
   function ContainerBuildButtons(name, buttonName) {
     this.name = name;
     console.log(this.name);
@@ -37,11 +44,8 @@ const gameBoard = (() => {
     this.buttonName.addEventListener("click", function () {
       for (let i = 0; i < cellsArray.length; i++)
         cellsArray[i].textContent = "";
+      init();
       game.state = "playing";
-      game.player1.active = true;
-      game.player2.active = false;
-      game.counter = 0;
-      statusContainer.textContent = "Tic Tac Toe Game";
       p1ResultsContainer.textContent = `${game.player1.name}: ${game.player1.score}`;
       resultsContainer.appendChild(p2ResultsContainer);
       statusContainer.appendChild(resultsContainer);
@@ -200,7 +204,16 @@ const gameBoard = (() => {
   function gameSetMatch() {
     if (game.player1.score >= 3 || game.player2.score >= 3) {
       game.state = "after";
-      buttonsContainer.textContent = "Start a new match?";
+      const newMatchButton = document.createElement("button");
+      newMatchButton.addEventListener("click", function () {
+        init();
+        game.player1.score = 0;
+        game.player2.score = 0;
+        for (let i = 0; i < 9; i++) {
+          cellsArray[i].textContent = "";
+        }
+      });
+      buttonsContainer.appendChild(newMatchButton);
       if (game.player1.score >= 3) {
         statusContainer.textContent = `${game.player1.name} wins the match!`;
       } else if (game.player2.score >= 3) {
