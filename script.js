@@ -6,7 +6,7 @@ const game = {
   },
   player2: {
     active: false,
-    name: "Player 1",
+    name: "Player 2",
     score: 0,
   },
   state: "playing",
@@ -40,14 +40,12 @@ const gameBoard = (() => {
       game.state = "playing";
       game.counter = 0;
       statusContainer.textContent = "Tic Tac Toe Game";
-      p1ResultsContainer = document.createElement("div");
       p1ResultsContainer.textContent = `${game.player1.name}: ${game.player1.score}`;
-      p2ResultsContainer = document.createElement("div");
       resultsContainer.appendChild(p2ResultsContainer);
       statusContainer.appendChild(resultsContainer);
       p2ResultsContainer.textContent = `${game.player2.name}: ${game.player2.score}`;
     });
-    return buttonName;
+    return name;
   }
   const bodyContainer = document.querySelector(".bodyContainer");
   const statusContainer = new ContainerBuildPrepend(
@@ -68,6 +66,21 @@ const gameBoard = (() => {
   resultsContainer.appendChild(p2ResultsContainer);
   p2ResultsContainer.textContent = `${game.player2.name}: ${game.player2.score}`;
   const choosePlayer = document.createElement("button");
+  choosePlayer.textContent = "Choose Player";
+
+  choosePlayer.addEventListener("click", function () {
+    if ((game.state = "before")) {
+      if (game.player1.active === true) {
+        game.player1.active = false;
+        game.player2.active = true;
+      } else {
+        game.player2.active = false;
+        game.player1.active = true;
+      }
+    }
+  });
+
+  buttonsContainer.appendChild(choosePlayer);
 
   const gridContainer = document.querySelector(".gridContainer");
 
