@@ -9,7 +9,7 @@ const game = {
     name: "Player 2",
     score: 0,
   },
-  state: "playing",
+  state: "before",
   counter: 0,
 };
 const gameBoard = (() => {
@@ -62,20 +62,11 @@ const gameBoard = (() => {
     "buttonsContainer",
     "resetBtn"
   );
-  const resultsContainer = document.createElement("div");
-  resultsContainer.classList.add("resultsContainer");
-  statusContainer.appendChild(resultsContainer);
-  const p1ResultsContainer = document.createElement("div");
-  resultsContainer.appendChild(p1ResultsContainer);
-  p1ResultsContainer.textContent = `${game.player1.name}: ${game.player1.score}`;
-  const p2ResultsContainer = document.createElement("div");
-  resultsContainer.appendChild(p2ResultsContainer);
-  p2ResultsContainer.textContent = `${game.player2.name}: ${game.player2.score}`;
   const choosePlayer = document.createElement("button");
   choosePlayer.textContent = "Choose Player";
 
   choosePlayer.addEventListener("click", function () {
-    if ((game.state = "before")) {
+    if ((game.state = "after")) {
       if (game.player1.active === true) {
         game.player1.active = false;
         game.player2.active = true;
@@ -85,6 +76,29 @@ const gameBoard = (() => {
       }
     }
   });
+  function startButtonFunc() {
+    if ((game.state = "before")) {
+      startButton = document.createElement("button");
+      startButton.textContent = "Start Game";
+      startButton.addEventListener("click", function () {
+        game.state = "playing";
+        startButton.remove();
+        choosePlayer.remove();
+      });
+      buttonsContainer.appendChild(startButton);
+    }
+    return startButton;
+  }
+  startButtonFunc();
+  const resultsContainer = document.createElement("div");
+  resultsContainer.classList.add("resultsContainer");
+  statusContainer.appendChild(resultsContainer);
+  const p1ResultsContainer = document.createElement("div");
+  resultsContainer.appendChild(p1ResultsContainer);
+  p1ResultsContainer.textContent = `${game.player1.name}: ${game.player1.score}`;
+  const p2ResultsContainer = document.createElement("div");
+  resultsContainer.appendChild(p2ResultsContainer);
+  p2ResultsContainer.textContent = `${game.player2.name}: ${game.player2.score}`;
 
   buttonsContainer.appendChild(choosePlayer);
 
@@ -205,13 +219,18 @@ const gameBoard = (() => {
     if (game.player1.score >= 3 || game.player2.score >= 3) {
       game.state = "after";
       const newMatchButton = document.createElement("button");
+      newMatchButton.textContent = "Play Again?";
       newMatchButton.addEventListener("click", function () {
         init();
+        game.state = "before";
+        buttonsContainer.appendChild(startButton);
+        buttonsContainer.appendChild(choosePlayer);
         game.player1.score = 0;
         game.player2.score = 0;
         for (let i = 0; i < 9; i++) {
           cellsArray[i].textContent = "";
         }
+        newMatchButton.remove();
       });
       buttonsContainer.appendChild(newMatchButton);
       if (game.player1.score >= 3) {
