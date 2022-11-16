@@ -68,9 +68,33 @@ const gameBoard = (() => {
   choosePlayer.addEventListener("click", function () {
     if ((game.state = "after")) {
       if (game.player1.active === true) {
+        const playerNameField = document.createElement("textarea");
+        playerNameField.textContent = "Player 1";
+        buttonsContainer.appendChild(playerNameField);
+        const confirmName = document.createElement("button");
+        confirmName.textContent = "Confirm name";
+        buttonsContainer.appendChild(confirmName);
+        confirmName.addEventListener("click", function () {
+          game.player1.name = playerNameField.value;
+          p1ResultsContainer.textContent = `${game.player1.name}: ${game.player1.score}`;
+          playerNameField.remove();
+          confirmName.remove();
+        });
         game.player1.active = false;
         game.player2.active = true;
       } else {
+        const playerNameField = document.createElement("textarea");
+        playerNameField.textContent = "Player 2";
+        buttonsContainer.appendChild(playerNameField);
+        const confirmName = document.createElement("button");
+        confirmName.textContent = "Confirm name";
+        buttonsContainer.appendChild(confirmName);
+        confirmName.addEventListener("click", function () {
+          game.player2.name = playerNameField.value;
+          playerNameField.remove();
+          confirmName.remove();
+          p2ResultsContainer.textContent = `${game.player2.name}: ${game.player2.score}`;
+        });
         game.player2.active = false;
         game.player1.active = true;
       }
