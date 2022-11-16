@@ -38,6 +38,8 @@ const gameBoard = (() => {
       for (let i = 0; i < cellsArray.length; i++)
         cellsArray[i].textContent = "";
       game.state = "playing";
+      game.player1.active = true;
+      game.player2.active = false;
       game.counter = 0;
       statusContainer.textContent = "Tic Tac Toe Game";
       p1ResultsContainer.textContent = `${game.player1.name}: ${game.player1.score}`;
@@ -115,6 +117,7 @@ const gameBoard = (() => {
                 game.state = "tied";
               }
               checkWin();
+              gameSetMatch();
             } else {
               game.player1.active = true;
               game.player2.active = false;
@@ -124,6 +127,7 @@ const gameBoard = (() => {
                 game.state = "tied";
               }
               checkWin();
+              gameSetMatch();
             }
           }
         }
@@ -190,6 +194,17 @@ const gameBoard = (() => {
           game.player1.active === true ? "Player 1 wins" : "Player 2 wins";
       } else if (game.state === "tied") {
         statusContainer.textContent = "Draw";
+      }
+    }
+  }
+  function gameSetMatch() {
+    if (game.player1.score >= 3 || game.player2.score >= 3) {
+      game.state = "after";
+      buttonsContainer.textContent = "Start a new match?";
+      if (game.player1.score >= 3) {
+        statusContainer.textContent = `${game.player1.name} wins the match!`;
+      } else if (game.player2.score >= 3) {
+        statusContainer.textContent = `${game.player2.name} wins the match!`;
       }
     }
   }
