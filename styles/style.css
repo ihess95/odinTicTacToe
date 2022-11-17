@@ -1,3 +1,7 @@
+* {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+
 body {
   background-color: grey;
 }
@@ -24,6 +28,7 @@ body {
 }
 .bodyContainer .statusContainer {
   font-size: 50px;
+  font-weight: bold;
 }
 .bodyContainer .statusContainer .resultsContainer {
   font-size: 25px;
