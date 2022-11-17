@@ -233,7 +233,9 @@ const gameBoard = (() => {
           game.player2.score++;
         }
         statusContainer.textContent =
-          game.player1.active === true ? "Player 1 wins" : "Player 2 wins";
+          game.player1.active === true
+            ? `${game.player1.name} wins the game!`
+            : `${game.player2.name} wins the game!`;
       } else if (game.state === "tied") {
         statusContainer.textContent = "Draw";
       }
